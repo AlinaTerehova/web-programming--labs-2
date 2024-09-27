@@ -169,7 +169,6 @@ def python():
 @app.route("/lab1/aqua")
 def aqua():
     return """
-
 <!doctype html>
 <html>
     <head>
@@ -249,5 +248,3 @@ def aqua():
 
 </html>
     """
-
- 
