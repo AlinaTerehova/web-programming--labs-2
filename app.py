@@ -364,3 +364,20 @@ def redirect_to_default():
 @app.route('/lab2/calc/<int:a>')
 def redirect_with_default_b(a):
     return redirect(f'/lab2/calc/{a}/1')
+
+book_list = [
+    {"author": "Джордж Оруэлл", "title": "1984", "genre": "Антиутопия", "pages": 328},
+    {"author": "Лев Толстой", "title": "Война и мир", "genre": "Роман", "pages": 1225},
+    {"author": "Гарпер Ли", "title": "Убить пересмешника", "genre": "Роман", "pages": 281},
+    {"author": "Федор Достоевский", "title": "Преступление и наказание", "genre": "Роман", "pages": 671},
+    {"author": "Дж. Р. Р. Толкин", "title": "Властелин колец", "genre": "Фэнтези", "pages": 1216},
+    {"author": "Рей Брэдбери", "title": "451 градус по Фаренгейту", "genre": "Фантастика", "pages": 194},
+    {"author": "Антуан де Сент-Экзюпери", "title": "Маленький принц", "genre": "Сказка", "pages": 96},
+    {"author": "Дэниел Киз", "title": "Цветы для Элджернона", "genre": "Фантастика", "pages": 311},
+    {"author": "Михаил Булгаков", "title": "Мастер и Маргарита", "genre": "Роман", "pages": 504},
+    {"author": "Александр Пушкин", "title": "Евгений Онегин", "genre": "Поэма", "pages": 384}
+]
+
+@app.route('/lab2/books')
+def show_books():
+    return render_template('books.html', books=book_list)
