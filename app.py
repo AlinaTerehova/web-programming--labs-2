@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
 app = Flask(__name__)
 
 @app.route("/")
@@ -259,62 +259,62 @@ def a():
 def a2():
     return 'со слешем'
 
-flower_list = ['Роза', 'Тюльпан', 'Незабудка', 'Ромашка',]
+# flower_list = ['Роза', 'Тюльпан', 'Незабудка', 'Ромашка',]
 
-@app.route('/lab2/flowers/<int:flower_id>')
-def flowers(flower_id):
-    if flower_id >= len(flower_list):
-        return 'Такого цветка нет', 404
-    else:
-        return "Цветок: " + flower_list[flower_id]
+# @app.route('/lab2/flowers/<int:flower_id>')
+# def flowers(flower_id):
+#     if flower_id >= len(flower_list):
+#         return 'Такого цветка нет', 404
+#     else:
+#         return "Цветок: " + flower_list[flower_id]
 
-@app.route('/lab2/add_flowers/', defaults={'name': None})   
-@app.route('/lab2/add_flowers/<name>')
-def add_flowers(name):
-    if not name:
-        return "Вы не задали имя цветка", 400
-    flower_list.append(name)
-    return f'''
-<!doctype html>
-<html>
-    <body>
-    <h1> Добавлен новый цветок </h1>
-    <p> Название нового цветка: {name} </p>
-    <p> Всего цветов: {len(flower_list)} </p>
-    <p> Полный список: {flower_list} </p>
-    <a href="/lab2/flowers">Посмотреть все цветы</a>
-    </body>
-</html>
-'''
+# @app.route('/lab2/add_flowers/', defaults={'name': None})   
+# @app.route('/lab2/add_flowers/<name>')
+# def add_flowers(name):
+#     if not name:
+#         return "Вы не задали имя цветка", 400
+#     flower_list.append(name)
+#     return f'''
+# <!doctype html>
+# <html>
+#     <body>
+#     <h1> Добавлен новый цветок </h1>
+#     <p> Название нового цветка: {name} </p>
+#     <p> Всего цветов: {len(flower_list)} </p>
+#     <p> Полный список: {flower_list} </p>
+#     <a href="/lab2/flowers">Посмотреть все цветы</a>
+#     </body>
+# </html>
+# '''
 
-@app.route('/lab2/flowers')
-def show_all_flowers():
-    return f'''
-<!doctype html>
-<html>
-    <body>
-    <h1> Все цветы </h1>
-    <p> Всего цветов: {len(flower_list)} </p>
-    <ul>
-        {"".join(f"<li>{flower}</li>" for flower in flower_list)}
-    </ul>
-    <a href="/lab2/clear_flowers">Очистить список цветов</a>
-    </body>
-</html>
-'''
+# @app.route('/lab2/flowers')
+# def show_all_flowers():
+#     return f'''
+# <!doctype html>
+# <html>
+#     <body>
+#     <h1> Все цветы </h1>
+#     <p> Всего цветов: {len(flower_list)} </p>
+#     <ul>
+#         {"".join(f"<li>{flower}</li>" for flower in flower_list)}
+#     </ul>
+#     <a href="/lab2/clear_flowers">Очистить список цветов</a>
+#     </body>
+# </html>
+# '''
 
-@app.route('/lab2/clear_flowers')
-def clear_flowers():
-    flower_list.clear()  
-    return '''
-<!doctype html>
-<html>
-    <body>
-    <h1> Список цветов очищен </h1>
-    <a href="/lab2/flowers">Посмотреть все цветы</a>
-    </body>
-</html> 
-'''
+# @app.route('/lab2/clear_flowers')
+# def clear_flowers():
+#     flower_list.clear()  
+#     return '''
+# <!doctype html>
+# <html>
+#     <body>
+#     <h1> Список цветов очищен </h1>
+#     <a href="/lab2/flowers">Посмотреть все цветы</a>
+#     </body>
+# </html> 
+# '''
 
 @app.route('/lab2/example')
 def example():
@@ -396,3 +396,40 @@ arts = [
 @app.route('/lab2/arts')
 def show_arts():
     return render_template('art.html', arts=arts)
+
+
+
+flower_data = [
+    {'name': 'Роза', 'price': 150},
+    {'name': 'Тюльпан', 'price': 100},
+    {'name': 'Незабудка', 'price': 50},
+    {'name': 'Ромашка', 'price': 75},
+]
+
+@app.route('/lab2/flowers')
+def show_all_flowers():
+    return render_template('flowers.html', flowers=flower_data)
+
+@app.route('/lab2/add_flowers', methods=['POST']) # это один из HTTP-методов, используемых для отправки данных от клиента
+def add_flowers():  
+    name = request.form.get('name')  # Получаем значение поля 'name' из данных формы, отправленных в запросе
+    price = request.form.get('price')  # Получаем значение поля 'price' из данных формы, отправленных в запросе
+    #request.form.get - это метод из библиотеки Flask, который позволяет извлекать данные, отправленные в теле POST-запроса в виде формы 
+    # (например, через HTML-форму).
+    if not name or not price:  
+        return "Неверные данные", 400  
+    flower_data.append({'name': name, 'price': int(price)})  # Добавляем новый цветок в список 'flower_data' с извлечённым именем и
+                                                            # ценой (при этом price конвертируем в целое число)
+    return redirect(url_for('show_all_flowers')) 
+
+@app.route('/lab2/delete_flower/<int:flower_id>')
+def delete_flower(flower_id):
+    if flower_id >= len(flower_data):
+        return "Такого цветка нет", 404
+    del flower_data[flower_id]
+    return redirect(url_for('show_all_flowers'))
+
+@app.route('/lab2/clear_flowers')
+def clear_flowers():
+    flower_data.clear()
+    return redirect(url_for('show_all_flowers'))
