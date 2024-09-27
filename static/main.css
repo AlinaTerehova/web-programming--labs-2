@@ -1,0 +1,32 @@
+
+body {
+    margin: 0;
+    font-family: Trebuchet MS, sans-serif;
+    background-color: #ffffff;
+    color: #482e1d;
+}
+    
+main {
+    margin-bottom: 20px;
+    padding: 10px;
+    margin: 20px;
+}
+
+header{
+    margin-bottom: 30px;
+    padding: 10px;
+    background:#273219;
+    color: #ffffff;
+}
+
+footer {
+    margin-top: 20px;
+    padding: 10px;
+    background: #273219;
+    color: #ffffff;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
