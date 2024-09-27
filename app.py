@@ -14,6 +14,7 @@ def menu():
 <html>
     <head>
         <title>НГТУ, ФБ, Лабораторные работы</title>
+        
     <head>
     <body>
         <header>
@@ -23,6 +24,7 @@ def menu():
         <nav>
             <ul>
                 <li><a href="/lab1">Первая лабораторная</a></li>
+                <li><a href="/lab2">Вторая лабораторная</a></li>
             </ul>
         </nav>
 

@@ -31,14 +31,18 @@ footer {
 }
 
 a:link {
-    color: rgb(3, 64, 21); /* Цвет ссылки до нажатия */
+    color: rgb(3, 64, 21);
+    text-decoration: none; 
 }
 a:hover {
-    color: rgb(26, 227, 26); /* Цвет ссылки при наведении курсора */
+    color: rgb(26, 227, 26);
+    text-decoration: none; 
 }
 a:active {
-    color: rgb(12, 179, 98); /* Цвет ссылки в момент нажатия */
+    color: rgb(12, 179, 98); 
+    text-decoration: none;
 }
 a:visited {
-    color: rgb(114, 255, 164); /* Цвет ссылки после посещения */
+    color: rgb(160, 214, 179); 
+    text-decoration: none;
 }

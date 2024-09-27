@@ -1,40 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Терехова Алина. Лабораторная работа 2
-    </title>
-    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
-    
-</head>
-<body>
-    <header>
-        WEB-программирование, часть 2. Лабраторная работа 2
-    </header>
 
-    <main>
-        <h1>Список книг</h1>
-        <table style=" border-spacing: 20px">
-            <tr>
-                <th>Автор</th>
-                <th>Название</th>
-                <th>Жанр</th>
-                <th>Количество страниц</th>
-            </tr>
-            {% for book in books %}
-            <tr>
-                <td>{{ book.author }}</td>
-                <td>{{ book.title }}</td>
-                <td>{{ book.genre }}</td>
-                <td>{{ book.pages }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </main>
+{% extends 'base.html' %}
 
-    <footer>
-        &copy; Алина Терехова, ФБИ-24, 3 курс, 2024
-    </footer>
-</body>
-</html>
+{# номер лабораторной работы: #}
+{% block lab %}Лабораторная работа 2 {% endblock %}
+
+{# основной контент #}
+{% block main %}
+    <h1>Список книг</h1>
+    <table style=" border-spacing: 20px">
+        <tr>
+            <th>Автор</th>
+            <th>Название</th>
+            <th>Жанр</th>
+            <th>Количество страниц</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.author }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.genre }}</td>
+            <td>{{ book.pages }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
