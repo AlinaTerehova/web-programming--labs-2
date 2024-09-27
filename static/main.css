@@ -13,7 +13,7 @@ main {
 }
 
 header{
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     padding: 10px;
     background:#273219;
     color: #ffffff;
@@ -29,4 +29,17 @@ footer {
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+a:link {
+    color: rgb(3, 64, 21); /* Цвет ссылки до нажатия */
+}
+a:hover {
+    color: rgb(26, 227, 26); /* Цвет ссылки при наведении курсора */
+}
+a:active {
+    color: rgb(12, 179, 98); /* Цвет ссылки в момент нажатия */
+}
+a:visited {
+    color: rgb(114, 255, 164); /* Цвет ссылки после посещения */
 }
