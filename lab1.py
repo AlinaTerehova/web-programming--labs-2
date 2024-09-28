@@ -170,6 +170,7 @@ def python():
 
 @lab1.route("/lab1/aqua")
 def aqua():
+
     return """
 <!doctype html>
 <html>
@@ -250,3 +251,9 @@ def aqua():
 
 </html>
     """
+
+
+# перехватчик ошибки
+@lab1.route('/lab1/error')
+def error():
+    return 1 + '2'
