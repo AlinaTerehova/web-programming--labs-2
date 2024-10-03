@@ -46,3 +46,7 @@ a:visited {
     color: rgb(45, 122, 72); 
     text-decoration: none;
 }
+
+div {
+    margin: 10px
+}
