@@ -50,3 +50,8 @@ a:visited {
 div {
     margin: 10px
 }
+
+.error {
+    color:red;
+    font-weight: bold;
+}
