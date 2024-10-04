@@ -9,33 +9,29 @@ app.register_blueprint(lab2)
 app.register_blueprint(lab3)
 
 @app.route("/")
-@app.route("/index")
-def start():
-    return redirect ('/menu', code=302)
-
-
-@app.route("/menu")
 def menu():
     return """
-
-<!document>
+<!DOCTYPE html>
 <html>
     <head>
         <title>НГТУ, ФБ, Лабораторные работы</title>
-        
-    <head>
+        <link rel="stylesheet" type="text/css" href=' """ + url_for('static', filename='lab1/main.css') + """ ' }}">
+    </head>
     <body>
         <header>
+           
             НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных
         </header>
-
+        <div>
+        <h1> Меню</h1> 
         <nav>
             <ul>
                 <li><a href="/lab1">Первая лабораторная</a></li>
-                <li><a href="{{ url_for('lab2.lab2') }}">Вторая лабораторная</a></li> 
-                <li><a href="{{ url_for('lab3.lab3') }}">Третья лабораторная</a></li> 
+                <li><a href="/lab2">Вторая лабораторная</a></li> 
+                <li><a href="/lab3">Третья лабораторная</a></li> 
             </ul>
         </nav>
+        </div>
 
         <footer> 
             &copy; Алина Терехова, ФБИ-24, 3 курс, 2024
@@ -43,6 +39,8 @@ def menu():
     </body>
 </html>
     """
+
+
 
 
 @app.errorhandler(404)

@@ -103,6 +103,19 @@ def settings():
                                              font_style=font_style))
         return resp
 
+@lab3.route('/lab3/clear_cookies')
+def clear_cookies():
+    resp = make_response(redirect('/lab3/settings'))
+    
+    # Удаляем все куки
+    resp.delete_cookie('color')
+    resp.delete_cookie('bg_color')
+    resp.delete_cookie('font_size')
+    resp.delete_cookie('font_style')
+    
+    return resp
+
+
 
 @lab3.route('/lab3/train_ticket')
 def train_ticket():
