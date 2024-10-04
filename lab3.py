@@ -155,3 +155,43 @@ def train_ticket():
 
     return render_template('lab3/train_ticket.html')
 
+
+
+# items.py
+
+products = [
+    {"name": "iPhone 14", "price": 60599, "color": "black", "brand": "Apple"},
+    {"name": "Samsung Galaxy S23", "price": 60090, "color": "white", "brand": "Samsung"},
+    {"name": "Google Pixel 7", "price": 39327, "color": "green", "brand": "Google"},
+    {"name": "OnePlus 11", "price": 55746, "color": "blue", "brand": "OnePlus"},
+    {"name": "Xiaomi 13", "price": 47300, "color": "gray", "brand": "Xiaomi"},
+    {"name": "Sony WH-1000XM5", "price": 29885, "color": "black", "brand": "Sony"},
+    {"name": "Dell XPS 13", "price": 246990, "color": "silver", "brand": "Dell"},
+    {"name": "MacBook Air M2", "price": 108990, "color": "gold", "brand": "Apple"},
+    {"name": "Asus ROG Zephyrus", "price": 354990, "color": "black", "brand": "Asus"},
+    {"name": "Kindle Paperwhite", "price": 19450, "color": "black", "brand": "Amazon"},
+    {"name": "Samsung Galaxy Tab S8", "price": 51814, "color": "silver", "brand": "Samsung"},
+    {"name": "Fitbit Charge 5", "price": 16490, "color": "black", "brand": "Fitbit"},
+    {"name": "Logitech MX Master 3", "price": 10690, "color": "black", "brand": "Logitech"},
+    {"name": "PlayStation 5", "price": 57990, "color": "white", "brand": "Sony"},
+    {"name": "Xbox Series X", "price": 52917, "color": "black", "brand": "Microsoft"},
+    {"name": "Apple Watch Series 8", "price": 32911, "color": "silver", "brand": "Apple"},
+    {"name": "Nikon D3500", "price": 47800, "color": "black", "brand": "Nikon"},
+    {"name": "Canon EOS M50", "price": 89999, "color": "black", "brand": "Canon"},
+    {"name": "GoPro HERO10", "price": 28000, "color": "black", "brand": "GoPro"},
+    {"name": "Bose QuietComfort 45", "price": 21990, "color": "black", "brand": "Bose"},
+    {"name": "JBL Flip 6", "price": 11452, "color": "blue", "brand": "JBL"}
+]
+
+@lab3.route('/lab3/search')
+def search():
+    return render_template('lab3/search_form.html')
+
+@lab3.route('/lab3/search_results')
+def search_results():
+    min_price = request.args.get('min_price', type=int)
+    max_price = request.args.get('max_price', type=int)
+
+    filtered_products = [p for p in products if min_price <= p["price"] <= max_price]
+
+    return render_template('lab3/search_results.html', products=filtered_products)
