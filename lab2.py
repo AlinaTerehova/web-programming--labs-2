@@ -30,13 +30,13 @@ def example():
 
 @lab2.route('/lab2/')
 def lab():
-    return render_template('lab2.html')
+    return render_template('lab2/lab2.html')
  
 
 @lab2.route('/lab2/filters')
 def filters():
     phrase = 'О <b>сколько</b> <u>нам</u> <i>открытий</i> чудных...'
-    return render_template('filter.html', phrase = phrase)
+    return render_template('lab2/filter.html', phrase = phrase)
 
 
 @lab2.route('/lab2/calc/<int:num1>/<int:num2>')
@@ -63,12 +63,12 @@ def calc(num1, num2):
 
 @lab2.route('/lab2/calc/')
 def redirect_to_default():
-    return redirect('/lab2/calc/1/1')
+    return redirect('lab2/lab2/calc/1/1')
 
 
 @lab2.route('/lab2/calc/<int:a>')
 def redirect_with_default_b(a):
-    return redirect(f'/lab2/calc/{a}/1')
+    return redirect(f'lab2/lab2/calc/{a}/1')
 
 
 book_list = [
@@ -86,7 +86,7 @@ book_list = [
 
 @lab2.route('/lab2/books')
 def show_books():
-    return render_template('books.html', books=book_list)
+    return render_template('lab2/books.html', books=book_list)
 
 
 arts = [
@@ -100,7 +100,7 @@ arts = [
 
 @lab2.route('/lab2/arts')
 def show_arts():
-    return render_template('art.html', arts=arts)
+    return render_template('lab2/art.html', arts=arts)
 
 
 flower_data = [
@@ -112,7 +112,7 @@ flower_data = [
 
 @lab2.route('/lab2/flowers')
 def show_all_flowers():
-    return render_template('flowers.html', flowers=flower_data)
+    return render_template('lab2/flowers.html', flowers=flower_data)
 
 
 @lab2.route('/lab2/add_flowers', methods=['POST']) # это один из HTTP-методов, используемых для отправки данных от клиента

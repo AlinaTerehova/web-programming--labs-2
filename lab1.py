@@ -56,10 +56,10 @@ def lab():
 
         <h2>Реализованные роуты</h2>
         <ul>
-            <li><a href='""" + url_for('oak') + """'>/lab1/oak</a></li>
-            <li><a href='""" + url_for('student') + """'>/lab1/student</a></li>
-            <li><a href='""" + url_for('python') + """'>/lab1/python</a></li>
-            <li><a href='""" + url_for('aqua') + """'>/lab1/aqua</a></li>
+            <li><a href='""" + url_for('lab1.oak') + """'>/lab1/oak</a></li>
+            <li><a href='""" + url_for('lab1.student') + """'>/lab1/student</a></li>
+            <li><a href='""" + url_for('lab1.python') + """'>/lab1/python</a></li>
+            <li><a href='""" + url_for('lab1.aqua') + """'>/lab1/aqua</a></li>
         </ul>
 
         <footer> 
@@ -78,11 +78,11 @@ def oak():
 <html>
     <head>
         <title>НГТУ, ФБ, Лабораторные работы</title>
-        <link rel="stylesheet" type="text/css" href='""" + url_for('static', filename='lab1.css') + """'>
+        <link rel="stylesheet" type="text/css" href='""" + url_for('static', filename='lab1/lab1.css') + """'>
     </head>
         <body>
             <h1>Дуб</h1>
-            <img src='""" + url_for('static', filename='oak.jpg') + """'>
+            <img src='""" + url_for('static', filename='lab1/oak.jpg') + """'>
         </body>
 
 </html>
@@ -113,7 +113,7 @@ def student():
     <body>
         <div>
             <h1>Терехова Алина Сергеевна</h1>
-            <img src='""" + url_for('static', filename='logo.webp') + """'>
+            <img src='""" + url_for('static', filename='lab1/logo.webp') + """'>
         <div>      
     </body>
 </html>
@@ -143,7 +143,7 @@ def python():
     <body>
         <div>
             <h1>Python</h1>
-            <img src='""" + url_for('static', filename='python.webp') + """'>
+            <img src='""" + url_for('static', filename='lab1/python.webp') + """'>
             <p>
                 Python — мультипарадигмальный высокоуровневый язык программирования общего назначения с 
                 динамической строгой типизацией и автоматическим управлением памятью, ориентированный на повышение производительности разработчика, читаемости кода и его качества,
@@ -244,7 +244,7 @@ def aqua():
                     </p>
                 </div>
                 <div class="image-block">
-                    <img src='""" + url_for('static', filename='aqua.jpg') + """' alt="BonAqua">
+                    <img src='""" + url_for('static', filename='lab1/aqua.jpg') + """' alt="BonAqua">
                 </div>
             </div>
         </body>

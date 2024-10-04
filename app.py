@@ -32,7 +32,8 @@ def menu():
         <nav>
             <ul>
                 <li><a href="/lab1">Первая лабораторная</a></li>
-                <li><a href="/lab2">Вторая лабораторная</a></li>
+                <li><a href="{{ url_for('lab2.lab2') }}">Вторая лабораторная</a></li> 
+                <li><a href="{{ url_for('lab3.lab3') }}">Третья лабораторная</a></li> 
             </ul>
         </nav>
 
@@ -46,8 +47,8 @@ def menu():
 
 @app.errorhandler(404)
 def not_found(err):
-    css_err = url_for("static", filename="err.css")
-    img_err = url_for("static", filename="404.png")
+    css_err = url_for("static", filename="lab1/err.css")
+    img_err = url_for("static", filename="lab1/404.png")
     return f'''
         <!doctype html>
         <html>
