@@ -282,23 +282,3 @@ def delete_user():
     users[:] = [user for user in users if user['login'] != login]
     session.pop('login', None)
     return redirect('/lab4/login')
-
-@lab4.route('/lab4/edit', methods=['GET', 'POST'])
-def edit_user():
-    if 'login' not in session:
-        return redirect('/lab4/login')
-    
-    current_user = next(user for user in users if user['login'] == session['login'])
-    
-    if request.method == 'POST':
-        new_name = request.form.get('name')
-        new_password = request.form.get('password')
-        
-        if new_name:
-            current_user['name'] = new_name
-        if new_password:
-            current_user['password'] = new_password
-        
-        return redirect('/lab4/users')
-    
-    return render_template('lab4/edit.html', user=current_user)
