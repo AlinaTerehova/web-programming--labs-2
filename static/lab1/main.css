@@ -4,10 +4,11 @@ body {
     font-family: Trebuchet MS, sans-serif;
     background-color: #ffffff;
     color: #482e1d;
+    padding-bottom: 60px; 
 }
     
 main {
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     padding: 10px;
     margin: 20px;
 }
