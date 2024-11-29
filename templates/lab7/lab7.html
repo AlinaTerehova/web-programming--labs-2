@@ -46,6 +46,10 @@
         background-color: #f67e05;
     }
 
+    .error-message {
+        color: red
+    }
+
 </style>
 
 {%endblock%}
@@ -60,7 +64,7 @@
             <tr>
                 <th colspan ="2">Название</th>
                 <th>Год</th>
-                <th>Дейсвтие</th>
+                <th>Действие</th>
             </tr>
         </thead>
         <tbody id="film-list"></tbody>
@@ -95,6 +99,7 @@
         <label>
             Описание:
             <textarea id="description"></textarea>
+            <div id="description-error" class = "error-message"></div>
         </label> <br>
 
         <button onclick="sendFilm()"> ОК </button>
@@ -102,6 +107,6 @@
 
     </div>
 
-
+    
 {% endblock %}
 
