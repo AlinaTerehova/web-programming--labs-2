@@ -46,7 +46,7 @@ def get_film(id):
     conn, cur = db_connect()
     if current_app.config.get('DB_TYPE') == 'postgres':
         cur.execute("SELECT * FROM films WHERE id = %s", (id,))
-    else:  
+    else:
         cur.execute("SELECT * FROM films WHERE id = ?", (id,))
     film = cur.fetchone()
     db_close(conn, cur)
@@ -54,19 +54,32 @@ def get_film(id):
     if not film:
         abort(404)
     
+    if current_app.config.get('DB_TYPE') == 'sqlite' and film:
+        film = dict(film)
+    
     return jsonify(film)
+
 
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['DELETE'])
 def del_film(id):
     conn, cur = db_connect()
-    cur.execute("DELETE FROM films WHERE id = %s RETURNING *", (id,))
-    deleted_film = cur.fetchone()
+    if current_app.config.get('DB_TYPE') == 'postgres':
+        cur.execute("DELETE FROM films WHERE id = %s RETURNING *", (id,))
+    else:
+        cur.execute("DELETE FROM films WHERE id = ?", (id,))
+        deleted_film = cur.fetchone()
+    
     db_close(conn, cur)
+    
+    # Преобразуем для SQLite
+    if current_app.config.get('DB_TYPE') == 'sqlite' and deleted_film:
+        deleted_film = dict(deleted_film)
     
     if not deleted_film:
         abort(404)
     
     return '', 204
+
 
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['PUT'])
 def put_film(id):
@@ -96,15 +109,17 @@ def put_film(id):
             SET title = %s, title_ru = %s, year = %s, description = %s
             WHERE id = %s RETURNING *
         """, (film['title'], film['title_ru'], film['year'], film['description'], id))
-    else:  
+    else:
         cur.execute("""
             UPDATE films
             SET title = ?, title_ru = ?, year = ?, description = ?
-            WHERE id = ? RETURNING *
+            WHERE id = ?
         """, (film['title'], film['title_ru'], film['year'], film['description'], id))
- 
-    updated_film = cur.fetchone()
+        updated_film = cur.fetchone()
     db_close(conn, cur)
+    
+    if current_app.config.get('DB_TYPE') == 'sqlite' and updated_film:
+        updated_film = dict(updated_film)
     
     if not updated_film:
         abort(404)
@@ -137,16 +152,19 @@ def add_film():
             INSERT INTO films (title, title_ru, year, description)
             VALUES (%s, %s, %s, %s) RETURNING *
         """, (film['title'], film['title_ru'], film['year'], film['description']))
-        new_film = cur.fetchone()
     else:
         cur.execute("""
             INSERT INTO films (title, title_ru, year, description)
             VALUES (?, ?, ?, ?)
         """, (film['title'], film['title_ru'], film['year'], film['description']))
-        conn.commit()  
-        new_film_id = cur.lastrowid
-        cur.execute("SELECT * FROM films WHERE id = ?", (new_film_id,))
+        conn.commit()
+        cur.execute("SELECT * FROM films WHERE rowid = last_insert_rowid()")
         new_film = cur.fetchone()
+    
     db_close(conn, cur)
+    
+
+    if current_app.config.get('DB_TYPE') == 'sqlite' and new_film:
+        new_film = dict(new_film)
     
     return jsonify(new_film), 201
