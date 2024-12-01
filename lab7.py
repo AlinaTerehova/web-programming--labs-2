@@ -132,11 +132,21 @@ def add_film():
         return jsonify({'year': 'Введите корректный год (1800-2100)'}), 400
 
     conn, cur = db_connect()
-    cur.execute("""
-        INSERT INTO films (title, title_ru, year, description)
-        VALUES (%s, %s, %s, %s) RETURNING *
-    """, (film['title'], film['title_ru'], film['year'], film['description']))
-    new_film = cur.fetchone()
+    if current_app.config.get('DB_TYPE') == 'postgres':
+        cur.execute("""
+            INSERT INTO films (title, title_ru, year, description)
+            VALUES (%s, %s, %s, %s) RETURNING *
+        """, (film['title'], film['title_ru'], film['year'], film['description']))
+        new_film = cur.fetchone()
+    else:
+        cur.execute("""
+            INSERT INTO films (title, title_ru, year, description)
+            VALUES (?, ?, ?, ?)
+        """, (film['title'], film['title_ru'], film['year'], film['description']))
+        conn.commit()  
+        new_film_id = cur.lastrowid
+        cur.execute("SELECT * FROM films WHERE id = ?", (new_film_id,))
+        new_film = cur.fetchone()
     db_close(conn, cur)
     
     return jsonify(new_film), 201
