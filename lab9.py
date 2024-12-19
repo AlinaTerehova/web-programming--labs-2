@@ -1,11 +1,56 @@
-from flask import Blueprint, render_template, redirect, request, session
-from werkzeug.utils import secure_filename
+from flask import Blueprint, render_template, redirect, request, session, url_for
 
 lab9 = Blueprint('lab9', __name__)
 
 @lab9.route('/lab9/')
 def lab():
-    return render_template('lab9/index.html')
+    # Проверка, если данные уже сохранены в сессии
+    if 'name' in session:
+        name = session['name']
+        age = int(session['age'])
+        gender = session['gender']
+        preference = session['preference']
+        specific_preference = session['specific_preference']
+
+        # Условие для возраста (ребёнок или взрослый)
+        if age < 18:
+            age_group = 'ребёнок'
+        else:
+            age_group = 'взрослый'
+
+        # Условие для пола
+        if gender == 'male':
+            growth_message = "желаю, ты оставался таким же красивым, сильным, добрым и всегда добивался своего!"
+        else:
+            growth_message = "желаю, чтобы ты оставалась такой же умной, сильной, доброй и всегда добивалась своего!"
+
+        # Логика для определения поздравления и изображения
+        if preference == 'tasty' and specific_preference == 'sweet':
+            message = f"Поздравляю тебя, {name}, {growth_message} Вот тебе подарок — мешочек конфет!"
+            image = "candies.jpg"
+        elif preference == 'tasty' and specific_preference == 'hearty':
+            message = f"Поздравляю тебя, {name}, {growth_message} Вот тебе подарок — корзина с вкусной едой!"
+            image = "food_basket.jpg"
+        elif preference == 'festive' and specific_preference == 'tree':
+            message = f"Поздравляю тебя, {name}, {growth_message} Вот тебе подарок — ёлка, которая принесёт уют и волшебство в твой дом!"
+            image = "tree.jpg"
+        elif preference == 'festive' and specific_preference == 'decorations':
+            message = f"Поздравляю тебя, {name}, {growth_message} Вот тебе подарок — новогодние украшения!"
+            image = "decorations.jpg"
+        else:
+            message = f"Поздравляю тебя, {name}, {growth_message} Желаю тебе Ы и здоровья в новом году!"
+            image = "default.jpg"
+
+        # Дополнительное сообщение в зависимости от возраста
+        if age_group == 'ребёнок':
+            message += " Пусть Новый год принесет тебе массу удивительных моментов и веселых приключений!"
+        else:
+            message += f" Пусть каждый твой день будет наполнен успехом и радостью."
+
+        return render_template('lab9/index.html', message=message, image=image)
+
+    # Если данных нет в сессии, показываем приветственное сообщение
+    return render_template('lab9/index.html', message=None)
 
 @lab9.route('/lab9/name', methods=['GET', 'POST'])
 def name():
@@ -66,28 +111,32 @@ def congratulations():
     else:
         growth_message = "желаю, чтобы ты оставалась такой же умной, сильной, доброй и всегда добивалась своего!"
 
-    
+    # Логика для определения поздравления и изображения
     if preference == 'tasty' and specific_preference == 'sweet':
         message = f"Поздравляю тебя, {name}, {growth_message} Вот тебе подарок — мешочек конфет!"
-        image = "candies.jpg"  
+        image = "candies.jpg"
     elif preference == 'tasty' and specific_preference == 'hearty':
         message = f"Поздравляю тебя, {name}, {growth_message} Вот тебе подарок — корзина с вкусной едой!"
-        image = "food_basket.jpg" 
+        image = "food_basket.jpg"
     elif preference == 'festive' and specific_preference == 'tree':
         message = f"Поздравляю тебя, {name}, {growth_message} Вот тебе подарок — ёлка, которая принесёт уют и волшебство в твой дом!"
-        image = "tree.jpg"  
+        image = "tree.jpg"
     elif preference == 'festive' and specific_preference == 'decorations':
         message = f"Поздравляю тебя, {name}, {growth_message} Вот тебе подарок — новогодние украшения!"
-        image = "decorations.jpg" 
+        image = "decorations.jpg"
     else:
         message = f"Поздравляю тебя, {name}, {growth_message} Желаю тебе Ы и здоровья в новом году!"
-        image = "default.jpg"  
+        image = "default.jpg"
 
-    # Если возраст ребёнок
+    # Дополнительное сообщение в зависимости от возраста
     if age_group == 'ребёнок':
         message += " Пусть Новый год принесет тебе массу удивительных моментов и веселых приключений!"
-    # Если возраст взрослый
     else:
         message += f" Пусть каждый твой день будет наполнен успехом и радостью."
 
     return render_template('lab9/congratulations.html', message=message, image=image)
+
+@lab9.route('/lab9/reset')
+def reset():
+    session.clear()
+    return redirect('/lab9/')

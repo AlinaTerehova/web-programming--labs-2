@@ -6,30 +6,32 @@
 
 {% block styles %}
 <style>
-    body {
-        background-image: url('{{ url_for('static', filename='snowflakes2.gif') }}');
-    }
-
     header, footer {
         background-color: #00006c; 
         color: white;  
+        font-size: 18px;
     }
 
     div {
-        background-color: rgb(252, 252, 252);
-        height: 50%;
-        width: 50%;
+        font-size: 18px;
     }
 
-    a {
-        color: red
-    }
 </style>
 {% endblock %}
-<div class="aaaa">
+<div>
     <h1>Поздравления</h1>
-    <p>Пройдите через несколько шагов, чтобы получить персональное поздравление!</p>
-    <a href="{{ url_for('lab9.name') }}">Начать</a>
+
+    {% if message %}
+        <!-- Если данные о поздравлении есть в сессии -->
+        <p>{{ message }}</p>
+        <img src="{{ url_for('static', filename=image) }}"class="centered-image">
+        <br>
+        <a href="{{ url_for('lab9.reset') }}">Сбросить данные и начать заново</a>
+    {% else %}
+        <!-- Если данных нет в сессии, показываем сообщение о необходимости пройти через форму -->
+        <p>Пройдите через несколько шагов, чтобы получить персональное поздравление!</p>
+        <a href="{{ url_for('lab9.name') }}">Начать</a>
+    {% endif %}
 </div>
 
 {% endblock %}
