@@ -1,19 +1,20 @@
-
 body {
     margin: 0;
     font-family: Trebuchet MS, sans-serif;
     background-color: #ffffff;
     color: #482e1d;
-    padding-bottom: 60px; 
+    padding-bottom: 60px;
+    font-size: 16px;
+ 
 }
-    
+
 main {
     margin-bottom: 60px;
     padding: 10px;
     margin: 20px;
 }
 
-header{
+header {
     padding: 10px;
     background:#273219;
     color: #ffffff;
@@ -31,36 +32,23 @@ footer {
     right: 0;
 }
 
-a:link {
+a:link, a:hover, a:active, a:visited {
     color: rgb(3, 64, 21);
-    text-decoration: none; 
-}
-a:hover {
-    color: rgb(26, 227, 26);
-    text-decoration: none; 
-}
-a:active {
-    color: rgb(12, 179, 98); 
-    text-decoration: none;
-}
-a:visited {
-    color: rgb(45, 122, 72); 
     text-decoration: none;
 }
 
 div {
-    margin: 10px
+    margin: 10px;
 }
 
 .error {
-    color:red;
+    color: red;
     font-weight: bold;
 }
 
-
 .block {
     display: inline-block;
-    padding:  15px;
+    padding: 15px;
     margin: 5px;
     background-color: #003c18;
     border-radius: 5px;
@@ -71,8 +59,86 @@ a.block {
     color: white;
 }
 
-.block-container{
+.block-container {
     background-color: #05b13e;
     padding: 30px;
     text-align: center;
+}
+
+/* Центрирование формы */
+.form-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px; 
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.option-block {
+    background-color: #9a9af8;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%; 
+    text-align: center;
+    font-size: 18px;
+}
+
+input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    accent-color: #e3a0f1; 
+}
+
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    text-align: center;
+    box-sizing: border-box; 
+}
+
+
+.submit-btn {
+    background-color: #21dbf7;
+    color: rgb(20, 11, 108);
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background-color: #fd70e8;
+}
+
+.centered-content {
+    text-align: center;
+}
+
+.centered-image {
+    width: 30%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.form-container {
+    max-width: 100%;
+    width: 100%;
+    padding: 15px;
 }
